@@ -28,7 +28,15 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		startAboutActivity();
 
+	}
+
+	private void init(){
+
+	}
+
+	private void startAboutActivity(){
 		new Handler().postDelayed(new Runnable() {
 
 			@Override

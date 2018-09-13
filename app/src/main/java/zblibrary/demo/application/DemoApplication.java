@@ -20,10 +20,12 @@ import zuo.biao.library.base.BaseApplication;
 import zuo.biao.library.util.StringUtil;
 import android.util.Log;
 
+import com.pt.shellprogramlibrary.ShellBaseApplication;
+
 /**Application
  * @author Lemon
  */
-public class DemoApplication extends BaseApplication {
+public class DemoApplication extends ShellBaseApplication {
 	private static final String TAG = "DemoApplication";
 
 	private static DemoApplication context;

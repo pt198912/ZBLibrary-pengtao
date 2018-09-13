@@ -25,4 +25,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     api project(':QRCodeLibrary')
     api project(':ZBLibrary')
+    implementation project(':shellprogramlibrary')
 }

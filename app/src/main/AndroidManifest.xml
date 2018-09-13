@@ -213,7 +213,10 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- ZBLibrary >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-
+        <activity android:name="com.pt.shellprogramlibrary.H5Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.pt.shellprogramlibrary.UpdateApkActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

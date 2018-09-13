@@ -78,7 +78,9 @@ public class HttpRequest {
 
 		HttpManager.getInstance().get(request, "http://fanyi.youdao.com/openapi.do", requestCode, listener);
 	}
-
+	public static void get(Map<String, Object> request, final int requestCode, final OnHttpResponseListener listener) {
+		HttpManager.getInstance().get(request, "http://fanyi.youdao.com/openapi.do", requestCode, listener);
+	}
 
 
 	//account<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
