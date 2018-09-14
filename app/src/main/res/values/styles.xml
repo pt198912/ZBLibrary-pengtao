@@ -24,7 +24,7 @@
     <style name="SplashTheme" parent="android:Theme.NoTitleBar.Fullscreen">
 
         <!-- 闪屏背景，可用图片 -->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <!--<item name="android:windowBackground">@drawable/splash</item>-->
         <item name="android:windowFullscreen">true</item>
     </style>
 

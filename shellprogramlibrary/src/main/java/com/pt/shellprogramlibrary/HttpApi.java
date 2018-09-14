@@ -6,5 +6,5 @@ package com.pt.shellprogramlibrary;
 
 public class HttpApi {
     public static final String BASE_URL="http://1256app.com:8080/biz/getAppConfig";
-    public static String
+
 }

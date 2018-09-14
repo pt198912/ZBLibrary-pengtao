@@ -114,7 +114,7 @@ public class HttpManager {
 						isFirst = false;
 					}
 				}
-
+				Log.d(TAG, "http-requset: "+sb.toString());
 				try {
 					result = getResponseJson(
 							client,
@@ -135,6 +135,7 @@ public class HttpManager {
 			@Override
 			protected void onPostExecute(Exception exception) {
 				super.onPostExecute(exception);
+				Log.d(TAG, "http-response: "+result);
 				listener.onHttpResponse(requestCode, result, exception);
 			}
 

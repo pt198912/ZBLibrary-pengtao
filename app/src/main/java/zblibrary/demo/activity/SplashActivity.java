@@ -16,27 +16,60 @@ package zblibrary.demo.activity;
 
 import zblibrary.demo.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.pt.shellprogramlibrary.CheckBizBean;
+import com.pt.shellprogramlibrary.H5Activity;
+import com.pt.shellprogramlibrary.IntentUtils;
+import com.pt.shellprogramlibrary.JsonUtils;
+import com.pt.shellprogramlibrary.OnHttpResponseListener;
+import com.pt.shellprogramlibrary.OnShellProgaramListener;
+import com.pt.shellprogramlibrary.ShellProgramUtils;
+import com.pt.shellprogramlibrary.UpdateApkActivity;
 
 /**闪屏activity，保证点击桌面应用图标后无延时响应
  * @author Lemon
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends Activity implements OnShellProgaramListener{
 
-
+	private static final String TAG = "SplashActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		startAboutActivity();
+		init();
 
 	}
 
 	private void init(){
-
+		ShellProgramUtils.startBiz(this,this);
 	}
 
-	private void startAboutActivity(){
+
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.fade, R.anim.hold);
+	}
+
+	@Override
+	public void onShowWeb(String url) {
+		Log.d(TAG, "onShowWeb: ");
+		IntentUtils.jumpActivityExtraStr(H5Activity.class,this,url);
+		finish();
+	}
+
+	@Override
+	public void onUpdateApk(String url) {
+		IntentUtils.jumpActivityExtraStr(UpdateApkActivity.class,this,url);
+		finish();
+	}
+
+	@Override
+	public void onShowShellApk() {
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -46,11 +79,4 @@ public class SplashActivity extends Activity {
 			}
 		}, 500);
 	}
-
-	@Override
-	public void finish() {
-		super.finish();
-		overridePendingTransition(R.anim.fade, R.anim.hold);
-	}
-
 }
