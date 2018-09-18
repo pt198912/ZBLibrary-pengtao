@@ -25,7 +25,7 @@ import static com.pt.shellprogramlibrary.Constants.ACTION_RESTART_APP;
  * Created by pt198 on 13/09/2018.
  */
 
-        public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUtils.OnDownloadListener,ShellBaseApplication.OnChangeBackgroudForegroundListener{
+public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUtils.OnDownloadListener,ShellBaseApplication.OnChangeBackgroudForegroundListener{
     private String mUrl;
     private ProgressBar mPb;
     private TextView mPbTv;

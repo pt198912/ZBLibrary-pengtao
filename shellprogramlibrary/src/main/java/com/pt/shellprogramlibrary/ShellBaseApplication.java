@@ -84,7 +84,13 @@ public class ShellBaseApplication extends BaseApplication {
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.ACTION_RESTART_APP)){
                 //restart app
+                restartApplication();
             }
         }
+    }
+    private void restartApplication() {
+        final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
