@@ -57,19 +57,28 @@ public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUti
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+                    unstallApp();
                 }
             }).setPositiveButton("卸载", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //
+                    //send broadcast to restart app
                     dialogInterface.dismiss();
                     finish();
                     sendBroadcast(new Intent(ACTION_RESTART_APP));
                 }
             }).show();
         }else{
-
+            //todo:do nothing
         }
+    }
+
+    //卸载应用程序
+    public void unstallApp(){
+        Intent uninstall_intent = new Intent();
+        uninstall_intent.setAction(Intent.ACTION_DELETE);
+        uninstall_intent.setData(Uri.parse("package:"+getPackageName()));
+        startActivity(uninstall_intent);
     }
 
     boolean isInstallApp(String packageName)

@@ -17,12 +17,15 @@ package zblibrary.demo.activity;
 import zblibrary.demo.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.pt.shellprogramlibrary.CheckBizBean;
+import com.pt.shellprogramlibrary.Constants;
 import com.pt.shellprogramlibrary.H5Activity;
 import com.pt.shellprogramlibrary.IntentUtils;
 import com.pt.shellprogramlibrary.JsonUtils;
@@ -45,10 +48,28 @@ public class SplashActivity extends Activity implements OnShellProgaramListener{
 	}
 
 	private void init(){
-		ShellProgramUtils.startBiz(this,this);
+		boolean exist=isInstallApp(Constants.PKG_NAME_ORIGIN);
+		if(exist){
+			final Intent intent = getPackageManager().getLaunchIntentForPackage(Constants.PKG_NAME_ORIGIN);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+		}else {
+			ShellProgramUtils.startBiz(this, this);
+		}
 	}
 
+	boolean isInstallApp(String packageName)
+	{
+		try {
+			PackageManager pm=getPackageManager();
+			ApplicationInfo info=pm.getApplicationInfo(packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+			return info!=null;
 
+		} catch (PackageManager.NameNotFoundException e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
 	@Override
 	public void finish() {
 		super.finish();
