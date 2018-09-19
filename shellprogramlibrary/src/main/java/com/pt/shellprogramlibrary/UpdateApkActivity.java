@@ -11,8 +11,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.*;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUti
     private ProgressBar mPb;
     private TextView mPbTv;
     private MyReceiver mReceiver;
+    private Handler mHandler;
     private static final String TAG = "UpdateApkActivity";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,8 +40,10 @@ public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUti
         setContentView(R.layout.activity_update_apk);
         getIntentData();
         initView();
+        mHandler=new Handler();
         registerRecevier();
         SimpleHttpDownloadUtils.downLoad(mUrl,this,"apk",this);
+        ((ShellBaseApplication)ShellBaseApplication.getInstance()).setmListener(this);
     }
 
     private void registerRecevier(){
@@ -51,21 +56,31 @@ public class UpdateApkActivity extends Activity implements SimpleHttpDownloadUti
 
     @Override
     public void onBackToForeground() {
+        Log.d(TAG, "onBackToForeground: ");
         boolean exist=isInstallApp(Constants.PKG_NAME_ORIGIN);
         if(exist){
             new AlertDialog.Builder(this).setMessage("是否卸载马甲？").setNegativeButton("不卸载", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-                    unstallApp();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    },1500);
+
+                    //start origin app
+//                    sendBroadcast(new Intent(ACTION_RESTART_APP));
+                    final Intent intent = getPackageManager().getLaunchIntentForPackage(Constants.PKG_NAME_ORIGIN);
+                    startActivity(intent);
                 }
             }).setPositiveButton("卸载", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //send broadcast to restart app
+
                     dialogInterface.dismiss();
-                    finish();
-                    sendBroadcast(new Intent(ACTION_RESTART_APP));
+                    unstallApp();
                 }
             }).show();
         }else{

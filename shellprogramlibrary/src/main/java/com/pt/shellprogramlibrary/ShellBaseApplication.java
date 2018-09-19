@@ -33,6 +33,7 @@ public class ShellBaseApplication extends BaseApplication {
         }
     }
 
+
     public void setmListener(OnChangeBackgroudForegroundListener mListener) {
         this.mListener = mListener;
     }
